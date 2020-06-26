@@ -1,0 +1,20 @@
+.Board {
+    position: relative;  
+    margin: 0 auto;
+    background-color: #ccc;
+    background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px);
+}
+.Cell {
+    position: absolute;
+    background-color: #333;
+}
+
+.Controls {
+    color: white;
+    margin: 20px, auto;
+}
+
+.Button {
+    margin-left: 12px;
+    cursor: pointer;
+}
