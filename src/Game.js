@@ -24,7 +24,6 @@ class Cell extends React.Component {
 
 
 class Game extends React.Component {
-
     constructor() {
         super();
         this.rows = HEIGHT / CELL_SIZE;
@@ -74,22 +73,6 @@ class Game extends React.Component {
         return cells;
     }
 
-    handleClick = (event) => {
-
-        const elemOffset = this.getElementOffset();
-        const offsetX = event.clientX - elemOffset.x;
-        const offsetY = event.clientY - elemOffset.y;
-        
-        const x = Math.floor(offsetX / CELL_SIZE);
-        const y = Math.floor(offsetY / CELL_SIZE);
-
-        if (x >= 0 && x <= this.cols && y >= 0 && y <= this.rows) {
-            this.board[y][x] = !this.board[y][x];
-        }
-
-        this.setState({ cells: this.makeCells() });
-    }
-
     runGame = () => {
         this.setState({ isRunning: true });
         this.runIteration();
@@ -131,12 +114,7 @@ class Game extends React.Component {
         }, this.state.interval);
     }
 
-    /**
-     * Calculate the number of neighbors at point (x, y)
-     * @param {Array} board 
-     * @param {int} x 
-     * @param {int} y 
-     */
+
     calculateNeighbors(board, x, y) {
         let neighbors = 0;
         const dirs = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
@@ -151,6 +129,22 @@ class Game extends React.Component {
         }
 
         return neighbors;
+    }
+
+    handleClick = (event) => {
+
+        const elemOffset = this.getElementOffset();
+        const offsetX = event.clientX - elemOffset.x;
+        const offsetY = event.clientY - elemOffset.y;
+        
+        const x = Math.floor(offsetX / CELL_SIZE);
+        const y = Math.floor(offsetY / CELL_SIZE);
+
+        if (x >= 0 && x <= this.cols && y >= 0 && y <= this.rows) {
+            this.board[y][x] = !this.board[y][x];
+        }
+
+        this.setState({ cells: this.makeCells() });
     }
 
     handleIntervalChange = (event) => {
@@ -186,19 +180,17 @@ class Game extends React.Component {
                     ))}
                 </div>
 
-                <div className="controls">
+                <div className="Controls">
                     Update every <input value={this.state.interval} onChange={this.handleIntervalChange} /> msec 
                     {isRunning ?
-                        <button className="button" onClick={this.stopGame}>Stop</button> :
-                        <button className="button" onClick={this.runGame}>Run</button>
+                        <button className="Button" onClick={this.stopGame}>Stop</button> :
+                        <button className="Button" onClick={this.runGame}>Run</button>
                     }
-                    <button className="button" onClick={this.handleRandom}>Random</button>
-                    <button className="button" onClick={this.handleClear}>Clear</button>
+                    <button className="Button" onClick={this.handleRandom}>Random</button>
+                    <button className="Button" onClick={this.handleClear}>Clear</button>
                 </div>
             </div>
         );
     }
 }
-
-
 export default Game;
